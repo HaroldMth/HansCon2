@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "node server.js",
-    "build": "mkdir -p public && cp -r * public", // Custom build process
+    "build": "mkdir -p public && cp -r * public", 
     "vercel-build": "npm run build"
   },
   "dependencies": {
