@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const room = params.get('room');
+        const username = localStorage.getItem('username');
+        const socket = io();
+
+        function sendMessage() {
+            const message = document.getElementById('message').value;
+            socket.emit('message', { room, username, text: message });
+            document.getElementById('message').value = '';
+        }
+
+        socket.on('message', (msg) => {
+            const chatBox = document.getElementById('chat-box');
+            const isSelf = msg.username === username;
+            const messageBubble = `
+                <div class="message ${isSelf ? 'sent' : 'received'}">
+                    <b>${msg.username}:</b> ${msg.text}
+                </div>
+            `;
+            chatBox.innerHTML += messageBubble;
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+        });
+
+        socket.on('update-users', (users) => {
+            document.getElementById('users-list').innerText = `Online: ${users.join(', ')}`;
+        });
+
+        socket.on('user-joined', (user) => {
+            alert(`${user} has joined the room`);
+        });
+
+        socket.on('user-left', (user) => {
+            alert(`${user} has left the room`);
+        });
+
+        window.onload = () => {
+            document.getElementById('room-name').innerText = room;
+            socket.emit('join', { room, username });
+        };
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Chat Room: <span id="room-name"></span></h1>
+    </header>
+    <main>
+        <div id="users-list">Online: </div>
+        <div id="chat-box"></div>
+        <div class="input-area">
+            <input type="text" id="message" placeholder="Type a message">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Room</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <script>
+        async function createRoom() {
+            const name = document.getElementById('room-name').value;
+            const password = document.getElementById('room-password').value;
+
+            const response = await fetch('/create-room', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, password })
+            });
+
+            if (response.ok) {
+                alert('Room created successfully!');
+                window.location.href = 'index.html';
+            } else {
+                const error = await response.json();
+                alert(error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Create a Room</h1>
+    </header>
+    <main>
+        <label for="room-name">Room Name</label>
+        <input type="text" id="room-name" required>
+
+        <label for="room-password">Password</label>
+        <input type="password" id="room-password" required>
+
+        <button onclick="createRoom()">Create</button>
+    </main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!-- public/join-room.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <title>Join Room</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Join an Existing Room</h2>
+        <form action="/join-room" method="POST">
+            <input type="text" name="roomName" placeholder="Room Name" required>
+            <input type="password" name="roomPassword" placeholder="Room Password" required>
+            <input type="text" name="username" placeholder="Your Username" required>
+            <button type="submit">Join Room</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Room</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="/public/favicon.ico" type="image/x-icon">
+    <script>
+        async function joinRoom() {
+            const params = new URLSearchParams(window.location.search);
+            const room = params.get('room');
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/join-room', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: room, password })
+            });
+
+            if (response.ok) {
+                localStorage.setItem('username', username);
+                window.location.href = `chat.html?room=${room}`;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Enter Room</h1>
+    </header>
+    <main>
+        <label for="username">Username</label>
+        <input type="text" id="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+
+        <button onclick="joinRoom()">Join</button>
+    </main>
+</body>
+</html>

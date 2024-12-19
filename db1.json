@@ -1,0 +1,20 @@
+{
+  "rooms": [
+    {
+      "name": "Hans Room",
+      "password": "hans123"
+    },
+    {
+      "name": "HansTech0",
+      "password": "HansTech124"
+    },
+    {
+      "name": "Hans Test",
+      "password": "HansTech124"
+    },
+    {
+      "name": "Hans Test-6555",
+      "password": "HansTech124"
+    }
+  ]
+}
