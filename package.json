@@ -1,7 +1,13 @@
 {
+  "name": "your-project",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "build": "mkdir -p public && cp -r * public", // Custom build process
+    "vercel-build": "npm run build"
+  },
   "dependencies": {
-    "express": "^4.21.2",
-    "express-session": "^1.18.1",
-    "socket.io": "^4.8.1"
+    "express": "^4.17.1",
+    "socket.io": "^4.5.4"
   }
 }
