@@ -6,10 +6,16 @@ const http = require('http');
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*", // Allow all origins; adjust as needed for security
+        methods: ["GET", "POST"]
+    }
+});
 
-const DB1_PATH = './db1.json'; // Rooms data
-const DB2_PATH = './db2.json'; // Messages and online users
+const PORT = process.env.PORT || 3000; // Default to 3000 if PORT is not set
+const DB1_PATH = './db1.json'; // Default path for rooms data
+const DB2_PATH = './db2.json'; // Default path for messages and online users data
 
 // Middleware
 app.use(express.json());
@@ -102,7 +108,6 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-const PORT = 3000;
 server.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://your-public-url:${PORT}`);
 });
