@@ -1,13 +1,22 @@
 {
   "name": "your-project",
   "version": "1.0.0",
+  "description": "A chat application with room creation, user authentication, and live messaging using Socket.IO.",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "mkdir -p public && cp -r * public", 
+    "build": "mkdir -p public && find . -maxdepth 1 -type d ! -name 'public' ! -name '.' -exec cp -r {} public/ \\; && cp -r *.js *.json public/",
     "vercel-build": "npm run build"
   },
   "dependencies": {
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "socket.io": "^4.5.4"
-  }
+  },
+  "engines": {
+    "node": ">=16.x"
+  },
+  "author": "Your Name",
+  "license": "MIT"
 }
